@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Beautiful Journey Together</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .nav-tab {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            display: none;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: #764ba2;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .memory-card {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .memory-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .memory-content {
+            padding: 25px;
+        }
+
+        .memory-card h3 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .memory-card p {
+            line-height: 1.6;
+            color: #636e72;
+        }
+
+        .memory-card .date {
+            font-style: italic;
+            color: #74b9ff;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .no-image .memory-content {
+            padding: 25px;
+        }
+
+        .special-moments {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .moment-card {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .moment-card:hover {
+            transform: scale(1.05);
+        }
+
+        .moment-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .moment-content {
+            padding: 20px;
+        }
+
+        .moment-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .moment-card h3 {
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+
+        .no-image-moment .moment-content {
+            padding: 20px;
+        }
+
+        .music-section {
+            text-align: center;
+        }
+
+        .playlist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .song-card {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .song-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .song-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .song-card p {
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .play-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .heart-float {
+            position: fixed;
+            font-size: 20px;
+            color: #e17055;
+            pointer-events: none;
+            animation: floatUp 3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .love-letter {
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+            border: 2px solid #ff6b9d;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .love-letter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,182,193,0.1) 0%, transparent 70%);
+            animation: sparkle 6s ease-in-out infinite;
+        }
+
+        .love-letter h3 {
+            color: #c44569;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .love-letter p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #2c2c54;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-align: left;
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.5rem;
+            color: #c44569;
+            margin-top: 30px;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+
+        .heart-border {
+            border: 3px solid #ff6b9d;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .heart-border::before {
+            content: '💕';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .promises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .promise-card {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .promise-card:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        .promise-card .promise-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .promise-card h4 {
+            color: #2c2c54;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .promise-card p {
+            color: #636e72;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(180deg);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .nav-tab {
+                margin: 5px;
+                padding: 10px 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Our Beautiful Journey Together ❤️</h1>
+            <p>A collection of our most precious memories and moments</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('memories')">Our Memories</button>
+            <button class="nav-tab" onclick="showSection('music')">Our Songs</button>
+            <button class="nav-tab" onclick="showSection('message')">My Heart</button>
+        </div>
+
+        <div id="memories" class="section active">
+            <h2>Our Precious Memories 📸</h2>
+            <div class="memory-grid">
+                <div class="memory-card">
+                    <img src="first date.jpg" alt="First Date Memory" class="memory-image">
+                    <div class="memory-content">
+                        <h3>Our First Date</h3>
+                        <p>I still remember how nervous I was, but the moment I saw your smile, everything felt perfect. That little café where we talked for hours about everything and nothing.</p>
+                        <div class="date">March 30, 2025</div>
+                    </div>
+                </div>
+                <div class="memory-card no-image">
+                    <div class="memory-content">
+                        <img src="yes.png" alt="Proposal Memory" class="memory-image">
+                        <h3>The Day You Said Yes</h3>
+                        <p>When I asked you to be my girlfriend, my heart was racing. Your beautiful "yes" was the sweetest sound I'd ever heard. That evening will forever be magical to me.</p>
+                        <div class="date">March 27, 2025</div>
+                    </div>
+                </div>
+                <div class="memory-card">
+                    <img src="kis.png" alt="First Trip Memory" class="memory-image">
+                    <div class="memory-content">
+                        <h3>This photo of Ours</h3>
+                        <p>This is was the first time you very ready to click photo while kissing and that too in public, I still remember how beautiful that was looking on my walpaper.</p>
+                        <div class="date">May 8, 2025</div>
+                    </div>
+                </div>
+                <div class="memory-card no-image">
+                    <img src="sareee.png" alt="saree">
+                    <div class="memory-content">
+                        <h3>Seeing You in Saree</h3>
+                        <p>Seeing you first time in Saree and just getting lost for sometime, I just remember getting lost.</p>
+                        <div class="date">Countless nights</div>
+                    </div>
+                </div>
+                <div class="memory-card">
+                    <img src="1st.jpg" alt="first anniversary" class="memory-image">
+                    <div class="memory-content">
+                        <h3>First Month Anniversary</h3>
+                        <p>Completed first month of our relationship, I know we had a lot of fights and after every fight we had more and more love for eachother. You giving an letter and that Handmade flower is the best gift I have ever got. </p>
+                        <div class="date">April 27, 2025</div>
+                    </div>
+                </div>
+                <div class="memory-card">
+                    <img src="birthday.jpg
+                    " alt="Birthday Surprise Memory" class="memory-image">
+                    <div class="memory-content">
+                        <h3>Your Birthday Surprise</h3>
+                        <p>The joy on your face when you saw me. The happiness you had on our solo beach visit. Our first drive together and you being the driver and i being the passenger princess for you, the most special day in the calendar becuase darling its your birthday.</p>
+                        <div class="date">Your special day</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="message" class="section">
+            <h2>A Message From My Heart 💝</h2>
+            <div class="message-container">
+                <div class="love-letter">
+    <h3>To The Love of My Life</h3>
+    <p>My Dearest,</p>
+    <p>
+    Shruti, I want to be honest about something that weighs heavy on me. I lied to you. I’m not saying this to ask for forgiveness right away, 
+    or to justify it because I know you’ve always valued truth. I failed you in a moment where trust should’ve been the strongest part of us. 
+    And I understand that even one lie can shake everything you believed in. That’s not fair to you.
+</p>
+<p>
+    I’m not asking you to forget it. I’m asking you to see that I’ve realized the damage it did  not just to our bond, 
+    but to the safety you once felt with me. I take full responsibility. No excuses. I’m learning how to rebuild, starting with truth. 
+    You deserved that from the start, and I am becoming the man who gives it always.
+</p>
+
+    <p>
+        This isn’t a letter to win you back. It’s a letter to say: I finally understand. 
+        And I’m growing not just for you, but because being the kind of person who can truly love you 
+        is who I want to be. Someone emotionally strong. Present. Trustworthy. Someone who listens, not reacts. 
+    </p>
+    <p>
+        I miss you every second. If love is real, it doesn’t pressure it respects.
+    </p>
+    <div class="signature">Forever becoming better, for you ❤️</div>
+</div>
+
+<div class="love-letter" style="margin-top: 40px;">
+    <p style="font-style: italic; font-size: 1.1rem; text-align: center;">
+        "True love isn’t about never making mistakes—it’s about learning, growing, and choosing each other again with deeper understanding."
+    </p>
+</div>
+
+            </div>
+        </div>
+
+<div id="music" class="section">
+            <h2>Our Soundtrack 🎵</h2>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 30px; color: #636e72;">
+                Songs that tell our story and remind me of you
+            </p>
+            <div class="playlist">
+                <div class="song-card">
+                    <h4>"Perfect" - Yasu</h4>
+                    <p>How Perfect Cuttieess we look together</p>
+                    <button class="play-btn" onclick="playMemory(this)" data-audio="song1">♪ Play Memory</button>
+                </div>
+                <div class="song-card">
+                    <h4>"I Think They Call this Love" - 0 Brain</h4>
+                    <p>How I feel every time I see you</p>
+                    <button class="play-btn" onclick="playMemory(this)" data-audio="song2">♪ Play Memory</button>
+                </div>
+                <div class="song-card">
+                    <h4>"Make You Mine" - Pratik</h4>
+                    <p>My Intentions with you</p>
+                    <button class="play-btn" onclick="playMemory(this)" data-audio="song3">♪ Play Memory</button>
+                </div>
+                <div class="song-card">
+                    <h4>"Nazar Na lag Jaaye" - Yasu</h4>
+                    <p>This toh I think Everytime You go out</p>
+                    <button class="play-btn" onclick="playMemory(this)" data-audio="song4">♪ Play Memory</button>
+                </div>
+                <div class="song-card">
+                    <h4>"Mil Gayi Tu Hi" - 0 Brain</h4>
+                    <p>The Song I wish to sing forever for you, which I cried the most singing.</p>
+                    <button class="play-btn" onclick="playMemory(this)" data-audio="song5">♪ Play Memory</button>
+                </div>
+                <div class="song-card">
+                    <h4>"Haareya" - Pratik</h4>
+                    <p>Tujhpe dil haareya</p>
+                    <button class="play-btn" onclick="playMemory(this)" data-audio="song6">♪ Play Memory</button>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            // Create floating hearts
+            createFloatingHearts();
+        }
+
+        function playMemory(button) {
+            button.innerHTML = '♪ Playing...';
+            button.style.background = 'rgba(255,255,255,0.4)';
+            
+            // Create special effect
+            createMusicNotes(button);
+            
+            setTimeout(() => {
+                button.innerHTML = '♪ Play Memory';
+                button.style.background = 'rgba(255,255,255,0.2)';
+            }, 2000);
+        }
+
+        function createFloatingHearts() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.className = 'heart-float';
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.top = window.innerHeight + 'px';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 200);
+            }
+        }
+
+        function createMusicNotes(button) {
+            const notes = ['♪', '♫', '♬', '♩', '♭'];
+            const buttonRect = button.getBoundingClientRect();
+            
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const note = document.createElement('div');
+                    note.innerHTML = notes[Math.floor(Math.random() * notes.length)];
+                    note.style.position = 'fixed';
+                    note.style.left = buttonRect.left + Math.random() * 50 + 'px';
+                    note.style.top = buttonRect.top + 'px';
+                    note.style.color = '#fff';
+                    note.style.fontSize = '20px';
+                    note.style.pointerEvents = 'none';
+                    note.style.animation = 'floatUp 2s ease-out forwards';
+                    document.body.appendChild(note);
+                    
+                    setTimeout(() => {
+                        note.remove();
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+
+        // Add some interactive magic
+        document.addEventListener('click', function(e) {
+            if (Math.random() > 0.7) {
+                createFloatingHearts();
+            }
+        });
+
+        // Welcome animation
+        window.addEventListener('load', function() {
+            setTimeout(createFloatingHearts, 1000);
+        });
+
+          let currentAudio = null;
+
+  function playMemory(button) {
+    const songId = button.getAttribute("data-audio");
+    const audio = document.getElementById(songId);
+
+    if (currentAudio && currentAudio !== audio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    if (audio.paused) {
+      audio.play();
+      currentAudio = audio;
+      button.textContent = "⏸ Pause Memory";
+    } else {
+      audio.pause();
+      button.textContent = "♪ Play Memory";
+    }
+  }
+    </script>
+    <audio id="song1" src="perfect.mp3"></audio>
+    <audio id="song2" src="i think they call this love.mp3"></audio>
+    <audio id="song3" src="make you mine.mp3"></audio>
+    <audio id="song4" src="nazar na lag jaaye.mp3"></audio>
+    <audio id="song5" src="mil gaya wahi.mp3"></audio>
+    <audio id="song6" src="haareya.mp3"></audio>
+
+</body>
+</html>
